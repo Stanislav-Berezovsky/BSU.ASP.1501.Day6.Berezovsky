@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Adapter.cs" />
     <Compile Include="CompareByNegativeMaxElement.cs" />
     <Compile Include="CompareByPositiveMaxElement.cs" />
     <Compile Include="CompareByNegativeSum.cs" />

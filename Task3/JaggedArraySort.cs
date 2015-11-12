@@ -8,34 +8,35 @@ namespace Task3
 {
     public static class JaggedArraySort
     {
-        public delegate int Comparator(int[] a, int[] b);
+        
 
 
-        public static void Sort(int[][] array, IComparer<int[]> comparator)
+        public static void InterfaceToDelegate(int[][] array, IComparer<int[]> comparator)
         {
             if (array == null)
                 throw new ArgumentNullException("Empty array");
             if (comparator == null)
                 throw new ArgumentNullException("Comparator is null");
-            var method = (Comparator)comparator.Compare;
-            InterfaceToDelegate(array, method);
+           
+           Sort(array, comparator.Compare);
         }
 
 
 
-        public static void Sort(int[][] array, Comparator comparator)
+        public static void DelegateToInterface(int[][] array, Comparison<int[]> comparator)
         {
             if (array == null)
                 throw new ArgumentNullException("Empty array");
             if (comparator == null)
                 throw new ArgumentNullException("Comparator is null");
-            var comparer = comparator.Target as IComparer<int[]>;
-            DelegateToInterface(array, comparer);
+           
+           // Sort(array, Comparer<int[]>.Create(comparator));
+            Sort(array, new Adapter<int[]>(comparator));
         }
 
 
 
-        private static void InterfaceToDelegate(int[][] array, Comparator comparator)
+        private static void Sort(int[][] array, Comparison<int[]> comparator)
         {
             for (int i = array.Length - 1; i >= 0; i--)
             {
@@ -49,7 +50,7 @@ namespace Task3
             }
         }
 
-        private static void DelegateToInterface(int[][] array, IComparer<int[]> comparer)
+        private static void Sort(int[][] array, IComparer<int[]> comparer)
         {
             for (int i = array.Length - 1; i >= 0; i--)
             {
@@ -57,7 +58,7 @@ namespace Task3
                 {
                     if (comparer.Compare(array[j], array[j + 1]) == 1)
                     {
-                        SwapArray(ref array[i], ref array[j]);
+                        SwapArray(ref array[j], ref array[j+1]);
                     }
                 }
             }
