@@ -11,11 +11,13 @@ namespace Task1_Console
     {
         static void Main(string[] args)
         {
-            var path = "Books.txt";
-            IRepository<Book> rep = new BookRepository(path);
-            var bookService = new BookListService(rep);
-           // Book book = new Book("logger", "logger", "aaa", 1);
-            //bookService.Add(book);
+            //var path = "Books.txt";
+            var path1 = "Book.XML";
+            //IRepository<Book> rep = new BookRepository(path);
+            IRepository<Book> rep1 = new WorkWithXml(path1);
+            var bookService = new BookListService(rep1);
+            Book book = new Book("werwer", "petrov", "Metoda", 1);
+            bookService.Add(book);
             //bookService.Delete(book);
             var books = bookService.Sort(x => x.Publication);
             foreach (var b in books)
@@ -26,7 +28,7 @@ namespace Task1_Console
                 Console.Write("{0}\t", b.Publication);
                 Console.WriteLine();
             }
-
+            /*
             Console.WriteLine();
             var _books = bookService.SearchBooks(x => x.Author == "qqq");
             foreach (var b in _books)
@@ -49,7 +51,7 @@ namespace Task1_Console
                 Console.Write("{0}\t", b.Genre);
                 Console.Write("{0}\t", b.Publication);
                 Console.WriteLine();
-            }
+            }*/
 
             Console.ReadKey();
         }

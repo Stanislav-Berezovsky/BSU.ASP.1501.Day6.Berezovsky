@@ -45,8 +45,11 @@
     <Compile Include="Book.cs" />
     <Compile Include="BookRepository.cs" />
     <Compile Include="BookListService.cs" />
+    <Compile Include="Linq2Xml.cs" />
+    <Compile Include="SerializeBook.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WorkWithXml.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="NLog.config">
