@@ -61,28 +61,33 @@ namespace Task1
 
         public void Save(IEnumerable<Book> entity)
         {
-            var settings = new XmlWriterSettings {Indent = true };
-            using (var writer = XmlWriter.Create(path, settings))
+            var settings = new XmlWriterSettings { Indent = true };
+            using (var fs = new FileStream(path, FileMode.Create))
             {               
-                // начинаем с XML-декларации
-                writer.WriteStartDocument();
-                // открывающий тег с двумя атрибутами
-                writer.WriteStartElement("Book");
-                foreach (var book in entity)
+                using (var writer = XmlWriter.Create(fs, settings))
                 {
-                    writer.WriteAttributeString("Genre",book.Genre);
-                    // вложенный элемент со строковым содержимым
-                    writer.WriteElementString("Author", book.Author);
-                    writer.WriteElementString("Title", book.Title);
-                    // так пишутся элементы с не строковым содержимым
-                    // для этого используется метод WriteValue()
-                    writer.WriteStartElement("Publication");
-                    writer.WriteValue(book.Publication);
+                    // начинаем с XML-декларации
+                    writer.WriteStartDocument();
+                    // открывающий тег с двумя атрибутами
+                    writer.WriteStartElement("Books");
+                    foreach (var book in entity)
+                    {
+                        writer.WriteStartElement("Book");
+                        writer.WriteAttributeString("Genre", book.Genre);
+                        // вложенный элемент со строковым содержимым
+                        writer.WriteElementString("Author", book.Author);
+                        writer.WriteElementString("Title", book.Title);
+                        // так пишутся элементы с не строковым содержимым
+                        // для этого используется метод WriteValue()
+                        writer.WriteStartElement("Publication");
+                        writer.WriteValue(book.Publication);
+                        writer.WriteEndElement();
+                        writer.WriteEndElement();
+                        // закрывающие теги (принцип стека)
+                    }
                     writer.WriteEndElement();
-                    // закрывающие теги (принцип стека)
+                    writer.WriteEndDocument();
                 }
-                writer.WriteEndElement();
-                writer.WriteEndDocument();
             }
         }
     }

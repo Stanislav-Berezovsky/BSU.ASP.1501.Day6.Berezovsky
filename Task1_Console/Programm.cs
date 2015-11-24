@@ -16,7 +16,7 @@ namespace Task1_Console
             //IRepository<Book> rep = new BookRepository(path);
             IRepository<Book> rep1 = new WorkWithXml(path1);
             var bookService = new BookListService(rep1);
-            Book book = new Book("werwer", "petrov", "Metoda", 1);
+            Book book = new Book("3qw", "23", "fantasy", 1);
             bookService.Add(book);
             //bookService.Delete(book);
             var books = bookService.Sort(x => x.Publication);
